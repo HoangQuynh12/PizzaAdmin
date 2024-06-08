@@ -54,6 +54,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.pizzeria.Model.Order
 import com.example.pizzeria.View.Category.CategoryDetails
 import com.example.pizzeria.View.Order.OrderDetails
 import com.example.pizzeria.View.Order.OrderManager
@@ -291,12 +292,12 @@ fun StatusCardLayout(context: Context, navController: NavHostController) {
     var totalConfirmed by remember { mutableStateOf(0.0) }
 
     // Lấy dữ liệu từ Firestore và cập nhật các giá trị
-//    LaunchedEffect(Unit) {
-//        productCount = getProductCount()
-//        orderCount = getOrderCount()
-//        totalConfirmed = getTotalConfirmed()
-//    }
-//
+    LaunchedEffect(Unit) {
+        productCount = getProductCount()
+        orderCount = getOrderCount()
+        totalConfirmed = getTotalConfirmed()
+    }
+
     val box = Brush.linearGradient(
         colors = listOf(blue, blue)
     )
@@ -350,25 +351,25 @@ suspend fun getProductCount(): Long {
 // Hàm để lấy số lượng đơn hàng
 suspend fun getOrderCount(): Long {
     val db = FirebaseFirestore.getInstance()
-    val orderCollection = db.collection("Order")
+    val orderCollection = db.collection("orders")
     val querySnapshot = orderCollection.get().await()
     return querySnapshot.size().toLong()
 }
 
 // Hàm để tính tổng total của các đơn hàng đã xác nhận
-//suspend fun getTotalConfirmed(): Double {
-//    val db = FirebaseFirestore.getInstance()
-//    val orderCollection = db.collection("orders")
-//    val querySnapshot = orderCollection.whereEqualTo("status", "Completed").get().await()
-//
-////    var totalConfirmed = 0.0
-////    for (document in querySnapshot) {
-////        val order = document.toObject<Order>()
-////        totalConfirmed += order.total ?: 0.0
-////    }
-////    return totalConfirmed
-//
-//}
+suspend fun getTotalConfirmed(): Double {
+    val db = FirebaseFirestore.getInstance()
+    val orderCollection = db.collection("orders")
+    val querySnapshot = orderCollection.whereEqualTo("status", "Delivered").get().await()
+
+    var totalConfirmed = 0.0
+    for (document in querySnapshot) {
+        val order = document.toObject<Order>()
+        totalConfirmed += order.total ?: 0.0
+    }
+    return totalConfirmed
+
+}
 @Composable
 fun CardColumnContent(
     modifier: Modifier,

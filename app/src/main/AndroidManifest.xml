@@ -50,6 +50,11 @@
             android:label="@string/title_activity_order_details"
             android:theme="@style/Theme.Pizzeria" />
         <activity
+            android:name=".View.Order.OrderManager"
+            android:exported="true"
+            android:label="@string/title_activity_ordermanager"
+            android:theme="@style/Theme.Pizzeria" />
+        <activity
             android:name=".View.Order.OrderPending"
             android:exported="true"
             android:label="@string/title_activity_orderpending"

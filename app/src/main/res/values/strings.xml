@@ -6,7 +6,7 @@
     <string name="title_activity_add_type">AddType</string>
     <string name="title_activity_category_details">CategoryDetails</string>
     <string name="title_activity_order_details">OrderDetail</string>
-    <string name="title_activity_order">Order</string>
+    <string name="title_activity_ordermanager">OrderManager</string>
     <string name="title_activity_ordercancelled">OrderCancelled</string>
     <string name="title_activity_ordercompleted">OrderCompleted</string>
     <string name="title_activity_orderpending">OrderPending</string>
